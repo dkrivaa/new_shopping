@@ -14,6 +14,7 @@ def download_from_drive(file_name):
     """ This function downloads the db from google drive """
     load_dotenv()
     folder_id = os.getenv("FOLDER_ID")
+    st.write(folder_id)
     # Load credentials from Streamlit secrets
     credentials = service_account.Credentials.from_service_account_info(
         json.loads(st.secrets["GOOGLE_SERVICE_ACCOUNT"]),
