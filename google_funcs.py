@@ -63,7 +63,7 @@ def upload_to_drive(db_name):
     file_metadata = {"name": db_name, "parents": [folder_id]}
     media = MediaFileUpload(db_name, mimetype="application/x-sqlite3")
 
-    uploaded = service.files().create(
+    uploaded = service.files().update(
         body=file_metadata,
         media_body=media,
         fields="id"
