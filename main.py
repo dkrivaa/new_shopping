@@ -1,8 +1,10 @@
 import streamlit as st
 from google_funcs import download_from_drive
 
-# download database from google drive
-download_from_drive('shopping.db')
+if 'db_loaded' not in st.session_state:
+    # Download database from Google Drive
+    download_from_drive('shopping.db')
+    st.session_state.db_loaded = True
 
 home_page = st.Page(
     title='Home',
