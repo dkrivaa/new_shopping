@@ -151,4 +151,3 @@ def change_amount(db_name: str, id_num: int, new_amount: int) -> None:
         session.close()
 
 
-create_db('shopping.db')
