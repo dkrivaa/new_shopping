@@ -16,7 +16,7 @@ def download_from_drive(file_name):
     folder_id = os.getenv("FOLDER_ID")
     # Load credentials from Streamlit secrets
     credentials = service_account.Credentials.from_service_account_info(
-        json.loads(os.getenv("GOOGLE_SERVICE_ACCOUNT"),
+        json.loads(os.getenv("GOOGLE_SERVICE_ACCOUNT")),
         scopes=["https://www.googleapis.com/auth/drive"]
     )
 
