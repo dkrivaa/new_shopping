@@ -55,7 +55,7 @@ def upload_to_drive(db_name):
     load_dotenv()
     folder_id = os.getenv("FOLDER_ID")
     credentials = service_account.Credentials.from_service_account_info(
-        json.loads(st.secrets["GOOGLE_SERVICE_ACCOUNT"]),
+        json.loads(os.getenv("GOOGLE_SERVICE_ACCOUNT")),
         scopes=["https://www.googleapis.com/auth/drive"]
     )
 
