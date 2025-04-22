@@ -17,6 +17,8 @@ def update_orders(old_data, new_data):
         if row.status != old_data.loc[old_data['id'] == row.id, 'status'].values:
             change_status('shopping.db', row.id)
 
+    upload_to_drive('shopping.db')
+
 
 def main():
     """ This is the main function for the home page """
@@ -32,7 +34,7 @@ def main():
                     amount = order[1]
                     if product != '':
                         add_order('shopping.db', product, amount)
-
+                        upload_to_drive('shopping.db')
                         if amount is not None:
                             st.write(f'Added {product}, {amount}')
                         else:

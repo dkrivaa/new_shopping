@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 import streamlit as st
 
 
-
 def download_from_drive(file_name):
     """ This function downloads the db from google drive """
     load_dotenv()
@@ -35,7 +34,7 @@ def download_from_drive(file_name):
         st.error(f"No file named {file_name} found in folder!")
     else:
         file_id = files[0]["id"]
-        st.info(f"Downloading {file_name} from Drive...")
+        # st.info(f"Downloading {file_name} from Drive...")
 
         # Download the file
         request = service.files().get_media(fileId=file_id)
@@ -45,9 +44,9 @@ def download_from_drive(file_name):
         done = False
         while done is False:
             status, done = downloader.next_chunk()
-            st.write(f"Download {int(status.progress() * 100)}%.")
+            # st.write(f"Download {int(status.progress() * 100)}%.")
 
-        st.success(f"✅ Downloaded {file_name} to local directory.")
+        # st.success(f"✅ Downloaded {file_name} to local directory.")
 
 
 def upload_to_drive(db_name):
@@ -70,4 +69,4 @@ def upload_to_drive(db_name):
         fields="id"
     ).execute()
 
-    st.success(f"Uploaded to Drive with ID: {uploaded['id']}")
+    # st.success(f"Uploaded to Drive with ID: {uploaded['id']}")

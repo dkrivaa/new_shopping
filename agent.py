@@ -59,7 +59,6 @@ def transcript(message):
 def transcript_order(message):
     try:
         text_en, text_he = transcript(message)
-        print(text_en, text_he)
 
         # Try if there is access to groq to run agent
         try:
