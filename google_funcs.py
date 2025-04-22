@@ -60,13 +60,21 @@ def upload_to_drive(db_name):
 
     service = build("drive", "v3", credentials=credentials)
 
-    file_metadata = {"name": db_name, "parents": [folder_id]}
+    # Find existing file by name in the folder
+    query = f"name = '{db_name}' and '{folder_id}' in parents and trashed = false"
+    response = service.files().list(q=query, fields="files(id)").execute()
+    files = response.get("files", [])
+
+    if not files:
+        print(f"❌ File '{db_name}' not found in folder. No update performed.")
+        return
+
+    file_id = files[0]['id']  # use the first match
     media = MediaFileUpload(db_name, mimetype="application/x-sqlite3")
 
-    uploaded = service.files().update(
-        body=file_metadata,
-        media_body=media,
-        fields="id"
+    # Perform the update using fileId
+    service.files().update(
+        fileId=file_id,
+        media_body=media
     ).execute()
 
-    # st.success(f"Uploaded to Drive with ID: {uploaded['id']}")
