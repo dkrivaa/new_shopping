@@ -1,8 +1,8 @@
 import streamlit as st
-from database import create_db
+from google_funcs import download_from_drive
 
-# Check if database exist, create if not
-create_db('shopping.db')
+# download database from google drive
+download_from_drive('shopping.db')
 
 home_page = st.Page(
     title='Home',

@@ -1,15 +1,22 @@
+import os
+
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload
 import io
+import json
+from dotenv import load_dotenv
 import streamlit as st
 
 
-def download_from_drive(file_name, folder_id):
+
+def download_from_drive(file_name):
     """ This function downloads the db from google drive """
+    load_dotenv()
+    folder_id = os.getenv("FOLDER_ID")
     # Load credentials from Streamlit secrets
     credentials = service_account.Credentials.from_service_account_info(
-        st.secrets["google_service_account"],
+        json.loads(st.secrets["GOOGLE_SERVICE_ACCOUNT"]),
         scopes=["https://www.googleapis.com/auth/drive"]
     )
 
@@ -43,10 +50,12 @@ def download_from_drive(file_name, folder_id):
         st.success(f"✅ Downloaded {file_name} to local directory.")
 
 
-def upload_to_drive(file_path, file_name, folder_id):
+def upload_to_drive(file_path, file_name):
     """ This file uploads the db to google drive """
+    load_dotenv()
+    folder_id = os.getenv("FOLDER_ID")
     credentials = service_account.Credentials.from_service_account_info(
-        st.secrets["google_service_account"],
+        json.loads(st.secrets["GOOGLE_SERVICE_ACCOUNT"]),
         scopes=["https://www.googleapis.com/auth/drive"]
     )
 

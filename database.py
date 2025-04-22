@@ -20,19 +20,19 @@ class Order(Base):
     picture = Column(String, nullable=True)
 
 
-def create_db(db_path) -> None:
+def create_db(db_name) -> None:
     """ This function creates the database if it does not exist """
-    if os.path.exists(db_path):
+    if os.path.exists(db_name):
         pass
     else:
-        engine = create_engine(f'sqlite:///{db_path}')
+        engine = create_engine(f'sqlite:///{db_name}')
         Base.metadata.create_all(engine)
-        print(f"Database created at {db_path}")
+        print(f"Database created at {db_name}")
 
 
-def active_orders(db_path: str, ) -> list[dict]:
+def active_orders(db_name: str, ) -> list[dict]:
     """ This function returns all active orders """
-    engine = create_engine(f'sqlite:///{db_path}')
+    engine = create_engine(f'sqlite:///{db_name}')
 
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -59,9 +59,9 @@ def active_orders(db_path: str, ) -> list[dict]:
         session.close()
 
 
-def all_orders(db_path: str, ) -> list[dict]:
+def all_orders(db_name: str, ) -> list[dict]:
     """ This function returns all orders regardless of status - active / not active"""
-    engine = create_engine(f'sqlite:///{db_path}')
+    engine = create_engine(f'sqlite:///{db_name}')
 
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -88,10 +88,10 @@ def all_orders(db_path: str, ) -> list[dict]:
         session.close()
 
 
-def add_order(db_path: str, product: str, amount: int, ordered_by: str = None,
+def add_order(db_name: str, product: str, amount: int, ordered_by: str = None,
               picture: str = None) -> str:
     """ This function adds a new order to the database """
-    engine = create_engine(f'sqlite:///{db_path}')
+    engine = create_engine(f'sqlite:///{db_name}')
 
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -112,9 +112,9 @@ def add_order(db_path: str, product: str, amount: int, ordered_by: str = None,
         return 'Something went wrong. Please try again'
 
 
-def change_status(db_path: str, id_num: int) -> str:
+def change_status(db_name: str, id_num: int) -> str:
     """ This function changes the status - active / not active -  of the order """
-    engine = create_engine(f'sqlite:///{db_path}')
+    engine = create_engine(f'sqlite:///{db_name}')
 
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -133,9 +133,9 @@ def change_status(db_path: str, id_num: int) -> str:
         return 'Something went wrong. Please try again'
 
 
-def change_amount(db_path: str, id_num: int, new_amount: int) -> None:
+def change_amount(db_name: str, id_num: int, new_amount: int) -> None:
     """ This function changes the amount of the order """
-    engine = create_engine(f'sqlite:///{db_path}')
+    engine = create_engine(f'sqlite:///{db_name}')
 
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -149,3 +149,6 @@ def change_amount(db_path: str, id_num: int, new_amount: int) -> None:
     except SQLAlchemyError as e:
         session.rollback()
         session.close()
+
+
+create_db('shopping.db')
