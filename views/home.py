@@ -3,6 +3,7 @@ import pandas as pd
 
 from database import active_orders, add_order, change_amount, change_status, all_orders
 from agent import transcript_order
+from google_funcs import upload_to_drive
 
 
 def update_orders(old_data, new_data):
@@ -31,6 +32,7 @@ def main():
                     amount = order[1]
                     if product != '':
                         add_order('shopping.db', product, amount)
+
                         if amount is not None:
                             st.write(f'Added {product}, {amount}')
                         else:

@@ -50,7 +50,7 @@ def download_from_drive(file_name):
         st.success(f"✅ Downloaded {file_name} to local directory.")
 
 
-def upload_to_drive(file_path, file_name):
+def upload_to_drive(db_name):
     """ This file uploads the db to google drive """
     load_dotenv()
     folder_id = os.getenv("FOLDER_ID")
@@ -61,8 +61,8 @@ def upload_to_drive(file_path, file_name):
 
     service = build("drive", "v3", credentials=credentials)
 
-    file_metadata = {"name": file_name, "parents": [folder_id]}
-    media = MediaFileUpload(file_path, mimetype="application/x-sqlite3")
+    file_metadata = {"name": db_name, "parents": [folder_id]}
+    media = MediaFileUpload(db_name, mimetype="application/x-sqlite3")
 
     uploaded = service.files().create(
         body=file_metadata,
