@@ -55,7 +55,7 @@ def main():
                     upload_to_drive('shopping.db')
 
                 # Feedback to user
-                if amount is not None and amount is not 0:
+                if amount is not None and amount != 0:
                     st.write(f'Added {product}, {amount}')
                 else:
                     st.write(f'Added {product}')
