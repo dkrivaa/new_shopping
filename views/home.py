@@ -25,24 +25,40 @@ def main():
     st.title(':blue[Family Shopping App]')
 
     with st.form('Enter Order', clear_on_submit=True):
+        st.subheader('Voice order')
         message = st.audio_input('Record Your Order')
+        st.divider()
+        st.subheader('Manual order')
+        manual_product = st.text_input('Enter Product', value=None)
+        manual_amount = st.number_input('Enter Amount', min_value=0)
         if st.form_submit_button('Submit'):
             try:
-                order = transcript_order(message)
-                if isinstance(order, list):
-                    product = order[0]
-                    amount = order[1]
-                    if product != '':
-                        add_order('shopping.db', product, amount)
-                        upload_to_drive('shopping.db')
-                        if amount is not None:
-                            st.write(f'Added {product}, {amount}')
+                # Voice input
+                if message:
+                    order = transcript_order(message)
+                    if isinstance(order, list):
+                        product = order[0]
+                        amount = order[1]
+                        if product != '':
+                            add_order('shopping.db', product, amount)
+                            upload_to_drive('shopping.db')
                         else:
-                            st.write(f'Added {product}')
+                            st.error(order)
                     else:
-                        st.error(order)
+                        st.error('You did not enter any order.')
+
+                # Manual input
+                elif manual_product:
+                    product = manual_product
+                    amount = manual_amount
+                    add_order('shopping.db', product, amount)
+                    upload_to_drive('shopping.db')
+
+                # Feedback to user
+                if amount is not None and amount != 0:
+                    st.write(f'Added {product}, {amount}')
                 else:
-                    st.error('You did not enter any order.')
+                    st.write(f'Added {product}')
 
             except:
                 # Manual process if agent not available
