@@ -27,10 +27,13 @@ def main():
     with st.form('Enter Order', clear_on_submit=True):
         st.subheader('Voice order')
         message = st.audio_input('Record Your Order')
-        st.divider()
+
         st.subheader('Manual order')
         manual_product = st.text_input('Enter Product', value=None)
         manual_amount = st.number_input('Enter Amount', min_value=0)
+
+        st.divider()
+
         if st.form_submit_button('Submit'):
             try:
                 # Voice input
