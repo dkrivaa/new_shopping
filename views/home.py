@@ -22,7 +22,7 @@ def update_orders(old_data, new_data):
 
 def main():
     """ This is the main function for the home page """
-    st.title(':blue[Family Shopping App]')
+    st.title(':blue[Family Shop App]')
 
     with st.form('Enter Order', clear_on_submit=True):
         st.subheader('Voice Order')
