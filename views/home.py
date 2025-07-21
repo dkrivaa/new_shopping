@@ -25,10 +25,10 @@ def main():
     st.title(':blue[Family Shopping App]')
 
     with st.form('Enter Order', clear_on_submit=True):
-        st.subheader('Voice order')
+        st.subheader('Voice Order')
         message = st.audio_input('Record Your Order')
 
-        st.subheader('Manual order')
+        st.subheader('Manual Order')
         manual_product = st.text_input('Enter Product', value=None)
         manual_amount = st.number_input('Enter Amount', min_value=0)
 
